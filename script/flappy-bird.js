@@ -19,6 +19,8 @@ function preload() {
     bg = new Background();
     road = new Road();
     bird = new Bird();
+
+    currentState = states.IS_GAME_READY;
 }
 
 function setup() {
@@ -31,6 +33,7 @@ function setup() {
 function draw() {
     switch (currentState) {
         case states.IS_GAME_READY:
+            bg.draw();
             road.draw();
             gameReady.draw();
             break;
@@ -49,13 +52,15 @@ function draw() {
     // bird reach to top
     if (bird.y < 0) {
         currentState = states.IS_GAME_OVER;
-        bird.y = canvas.height / 2;
+        bird.y = canvas.height / 3;
+        bird.speed = 0;
     }
 
     // bird reach to bottom
-    if (bird.y > canvas.height) {
+    if (bird.y > canvas.height - bird.height) {
         currentState = states.IS_GAME_OVER;
-        bird.y = canvas.height / 2;
+        bird.y = canvas.height / 3;
+        bird.speed = 0;
     }
 }
 
@@ -64,18 +69,11 @@ function mouseClicked() {
         case states.IS_GAME_READY:
             currentState = states.IS_GAME_STARTED;
             break;
-        case states.IS_GAME_STARTED:
-            bird.onFlap();
-            break;
         case states.IS_GAME_OVER:
             currentState = states.IS_GAME_READY;
             break;
+        default:
+            bird.onFlap();
+            break;
     }
 }
-
-window.addEventListener('load', () => {
-    currentState = states.IS_GAME_READY;
-});
-window.addEventListener('click', () => {
-    currentState = states.IS_GAME_STARTED;
-});
