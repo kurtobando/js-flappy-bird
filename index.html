@@ -9,13 +9,27 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0" />
         <title>Flappy Bird</title>
+        <style>
+            body {
+                display: grid;
+                place-items: center;
+                padding-block: 1rem;
+            }
+        </style>
     </head>
     <body>
         <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"
-                integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog=="
-                crossorigin="anonymous"
-                referrerpolicy="no-referrer"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"
+            integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+        <script src="script/classes/canvas.js"></script>
+        <script src="script/classes/game-ready.js"></script>
+        <script src="script/classes/game-over.js"></script>
+        <script src="script/classes/road.js"></script>
+        <script src="script/classes/background.js"></script>
+        <script src="script/classes/bird.js"></script>
         <script src="./script/flappy-bird.js"></script>
     </body>
 </html>
