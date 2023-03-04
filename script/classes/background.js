@@ -4,7 +4,6 @@ class Background extends Canvas {
 
         this.image = loadImage('./assets/background.png');
     }
-
     draw() {
         return background(this.image);
     }

@@ -19,15 +19,13 @@ function preload() {
     bg = new Background();
     road = new Road();
     bird = new Bird();
+    pipe = new Pipe();
 
     currentState = states.IS_GAME_READY;
 }
 
 function setup() {
     createCanvas(canvas.width, canvas.height).id('flappy-bird');
-
-    bg.draw();
-    road.draw();
 }
 
 function draw() {
@@ -40,6 +38,7 @@ function draw() {
         case states.IS_GAME_STARTED:
             bg.draw();
             road.draw();
+            pipe.draw();
             bird.draw();
             break;
         case states.IS_GAME_OVER:
@@ -61,6 +60,22 @@ function draw() {
         currentState = states.IS_GAME_OVER;
         bird.y = canvas.height / 3;
         bird.speed = 0;
+    }
+
+    // bird hit the pipe up
+    if (bird.y < pipe.yAxis && bird.x > pipe.xAxis && bird.x < pipe.xAxis + pipe.width) {
+        currentState = states.IS_GAME_OVER;
+        bird.y = canvas.height / 3;
+        bird.speed = 0;
+        pipe.xAxis = canvas.width;
+    }
+
+    // bird hit the pipe down
+    if (bird.y > pipe.yAxis + pipe.height && bird.x > pipe.xAxis && bird.x < pipe.xAxis + pipe.width) {
+        currentState = states.IS_GAME_OVER;
+        bird.y = canvas.height / 3;
+        bird.speed = 0;
+        pipe.xAxis = canvas.width;
     }
 }
 

@@ -9,14 +9,12 @@ class Bird {
         this.gravity = 0.6;
         this.flap = 12;
     }
-
     draw() {
         this.speed += this.gravity;
         this.y += this.speed;
 
         return image(this.image, this.x, this.y, this.width, this.height);
     }
-
     onFlap() {
         this.speed = -this.flap;
     }

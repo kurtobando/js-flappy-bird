@@ -5,7 +5,6 @@ class Road extends Canvas {
         this.image = loadImage('./assets/road.png');
         this.speed = 0;
     }
-
     draw() {
         let imageX = this.speed;
         let imageY = this.height - 65;
