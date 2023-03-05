@@ -2,18 +2,53 @@ class Bird {
     constructor() {
         this.x = 80;
         this.y = 200;
-        this.width = 40;
-        this.height = 30;
-        this.image = loadImage('./assets/bird.png');
+        this.width = 34;
+        this.height = 28;
+        this.image = loadImage('./assets/sprite.png');
         this.speed = 0;
         this.gravity = 0.6;
         this.flap = 12;
+        this.flatLoop = 0;
     }
     draw() {
         this.speed += this.gravity;
         this.y += this.speed;
 
-        return image(this.image, this.x, this.y, this.width, this.height);
+        let getBirdWidth = this.width + 6;
+        let getBirdHeight = this.height + 6;
+        let getBirdX = this.x;
+        let getBirdY = this.y;
+        let getBirdDX = 277;
+        let getBirdDY = 112;
+        let getBirdDWidth = this.width;
+        let getBirdDHeight = this.height;
+
+        if (Math.floor(this.y) % 2 === 0) {
+            getBirdDX = 277;
+            getBirdDY = 112;
+        }
+
+        if (Math.floor(this.y) % 3 === 0) {
+            getBirdDX = 277;
+            getBirdDY = 138;
+        }
+
+        if (Math.floor(this.y) % 5 === 0) {
+            getBirdDX = 277;
+            getBirdDY = 166;
+        }
+
+        return image(
+            this.image,
+            getBirdX,
+            getBirdY,
+            getBirdWidth,
+            getBirdHeight,
+            getBirdDX,
+            getBirdDY,
+            getBirdDWidth,
+            getBirdDHeight
+        );
     }
     onFlap() {
         this.speed = -this.flap;
