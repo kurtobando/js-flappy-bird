@@ -3,7 +3,7 @@ class Bird {
         this.x = 80;
         this.y = 200;
         this.width = 34;
-        this.height = 28;
+        this.height = 26;
         this.image = loadImage('./assets/sprite.png');
         this.speed = 0;
         this.gravity = 0.6;
@@ -14,8 +14,8 @@ class Bird {
         this.speed += this.gravity;
         this.y += this.speed;
 
-        let getBirdWidth = this.width + 6;
-        let getBirdHeight = this.height + 6;
+        let getBirdWidth = this.width + 12;
+        let getBirdHeight = this.height + 12;
         let getBirdX = this.x;
         let getBirdY = this.y;
         let getBirdDX = 277;
