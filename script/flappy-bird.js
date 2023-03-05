@@ -4,7 +4,10 @@ let gameOver;
 let bg;
 let road;
 let bird;
-let score = 0;
+let score = {
+    current: 0,
+    best: 0,
+};
 let currentState = null;
 let states = {
     IS_GAME_READY: 1,
@@ -50,32 +53,31 @@ function draw() {
 
     // bird reach to top
     if (bird.y < 0) {
-        currentState = states.IS_GAME_OVER;
-        bird.y = canvas.height / 3;
-        bird.speed = 0;
+        onGameOver();
     }
 
     // bird reach to bottom
     if (bird.y > canvas.height - bird.height) {
-        currentState = states.IS_GAME_OVER;
-        bird.y = canvas.height / 3;
-        bird.speed = 0;
+        onGameOver();
     }
 
-    // bird hit the pipe up
-    if (bird.y < pipe.yAxis && bird.x > pipe.xAxis && bird.x < pipe.xAxis + pipe.width) {
-        currentState = states.IS_GAME_OVER;
-        bird.y = canvas.height / 3;
-        bird.speed = 0;
-        pipe.xAxis = canvas.width;
+    // bird hit the top gap
+    if (bird.x + bird.width >= pipe.gap.x && bird.x <= pipe.gap.x + pipe.gap.width && bird.y <= pipe.gap.y) {
+        onGameOver();
     }
 
-    // bird hit the pipe down
-    if (bird.y > pipe.yAxis + pipe.height && bird.x > pipe.xAxis && bird.x < pipe.xAxis + pipe.width) {
-        currentState = states.IS_GAME_OVER;
-        bird.y = canvas.height / 3;
-        bird.speed = 0;
-        pipe.xAxis = canvas.width;
+    // bird hit the bottom gap
+    if (
+        bird.x + bird.width >= pipe.gap.x &&
+        bird.x <= pipe.gap.x + pipe.gap.width &&
+        bird.y + bird.height >= pipe.gap.y + pipe.gap.height
+    ) {
+        onGameOver();
+    }
+
+    // bird pass the gap
+    if (bird.x + bird.width > pipe.gap.x + pipe.gap.width) {
+        score.current += 1 / 40;
     }
 }
 
@@ -91,4 +93,13 @@ function mouseClicked() {
             bird.onFlap();
             break;
     }
+}
+
+function onGameOver() {
+    currentState = states.IS_GAME_OVER;
+    bird.y = canvas.height / 3;
+    bird.speed = 0;
+    pipe.gap.x = canvas.width;
+    score.best = score.best < Math.floor(score.current) ? Math.floor(score.current) : score.best;
+    score.current = 0;
 }

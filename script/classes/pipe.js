@@ -2,39 +2,49 @@ class Pipe extends Canvas {
     constructor(props) {
         super(props);
 
-        this.canvas = {
-            width: this.width,
-            height: this.height,
-        };
         this.speed = 3;
-        this.gap = 240;
-        this.xAxis = this.canvas.width;
-        this.yAxis = 200;
-        this.width = 70;
-        this.height = this.gap;
         this.image = {
-            down: loadImage('./assets/pipe-up.png'),
-            up: loadImage('./assets/pipe-down.png'),
+            up: loadImage('./assets/pipe-up.png'),
+            down: loadImage('./assets/pipe-down.png'),
+        };
+        this.gap = {
+            width: 90,
+            height: 200,
+            x: this.width,
+            y: 200,
+        };
+        this.pipe = {
+            width: this.gap.width,
+            height: this.height / 2 + 100,
         };
     }
     draw() {
         this.drawPipeUp();
         this.drawPipeDown();
-        // rect(this.xAxis, this.yAxis, this.width, this.height);
+        this.gap.x -= this.speed;
 
-        this.xAxis -= this.speed;
-        if (this.xAxis < -this.width) {
-            this.xAxis = this.canvas.width;
-            this.yAxis = this.getRandomY();
+        if (this.gap.x < -this.gap.width) {
+            this.gap.x = this.width;
+            this.gap.y = this.getRandomY();
         }
     }
     drawPipeUp() {
-        image(this.image.up, this.xAxis, 0, this.width, this.yAxis);
+        let getPipeUpWidth = this.pipe.width;
+        let getPipeUpHeight = this.gap.y;
+        let getPipeX = this.gap.x;
+        let getPipeY = 0;
+
+        image(this.image.up, getPipeX, 0, getPipeUpWidth, getPipeUpHeight);
     }
     drawPipeDown() {
-        image(this.image.down, this.xAxis, this.yAxis + this.height, this.width, this.canvas.height);
+        let getPipeUpWidth = this.pipe.width;
+        let getPipeUpHeight = this.pipe.height;
+        let getPipeX = this.gap.x;
+        let getPipeY = this.gap.y + this.gap.height;
+
+        image(this.image.down, getPipeX, getPipeY, getPipeUpWidth, getPipeUpHeight);
     }
     getRandomY() {
-        return random(50, canvas.height - 200);
+        return random(120, this.height - 200);
     }
 }
