@@ -34,7 +34,6 @@ function preload() {
 function setup() {
     createCanvas(canvas.width, canvas.height).id('flappy-bird');
     pixelDensity(1);
-    gameOver.draw();
 }
 
 function draw() {
