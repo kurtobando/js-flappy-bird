@@ -1,0 +1,17 @@
+
+#scores {
+    font-family: 'Bungee', cursive;
+    font-size: 0.9rem;
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    text-align: center;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#best-score {
+    font-size: 1.5rem;
+}

@@ -1,3 +1,6 @@
+const DOMScore = document.getElementById('score');
+const DOMBestScore = document.getElementById('best-score');
+
 let canvas;
 let gameReady;
 let gameOver;
@@ -14,6 +17,7 @@ let states = {
     IS_GAME_STARTED: 2,
     IS_GAME_OVER: 3,
 };
+let timeout = null;
 
 function preload() {
     canvas = new Canvas();
@@ -29,6 +33,8 @@ function preload() {
 
 function setup() {
     createCanvas(canvas.width, canvas.height).id('flappy-bird');
+    pixelDensity(1);
+    gameOver.draw();
 }
 
 function draw() {
@@ -76,9 +82,19 @@ function draw() {
     }
 
     // bird pass the gap
-    if (bird.x + bird.width > pipe.gap.x + pipe.gap.width) {
-        score.current += 1 / 40;
+    if (
+        bird.x + bird.width > pipe.gap.x + bird.width &&
+        bird.x + bird.width < pipe.gap.x + pipe.gap.width + bird.width
+    ) {
+        if (currentState === states.IS_GAME_STARTED) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                score.current += 1;
+            }, 500);
+        }
     }
+
+    onScore();
 }
 
 function mouseClicked() {
@@ -100,6 +116,12 @@ function onGameOver() {
     bird.y = canvas.height / 3;
     bird.speed = 0;
     pipe.gap.x = canvas.width;
+    pipe.gap.y = pipe.getRandomY();
     score.best = score.best < Math.floor(score.current) ? Math.floor(score.current) : score.best;
     score.current = 0;
+}
+
+function onScore() {
+    DOMScore.innerHTML = `Current Score: ${Math.floor(score.current)}`;
+    DOMBestScore.innerHTML = `Best Score: ${score.best}`;
 }

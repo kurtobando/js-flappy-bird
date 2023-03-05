@@ -2,7 +2,7 @@ class Pipe extends Canvas {
     constructor(props) {
         super(props);
 
-        this.speed = 3;
+        this.speed = 4;
         this.image = {
             up: loadImage('./assets/pipe-up.png'),
             down: loadImage('./assets/pipe-down.png'),
