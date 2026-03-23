@@ -2,7 +2,7 @@
   "name": "js-flappy-bird",
   "version": "1.0.0",
   "scripts": {
-    "start": "serve -s . -l 3000"
+    "start": "serve . -l ${PORT:-3000}"
   },
   "devDependencies": {
     "prettier": "2.8.4"
